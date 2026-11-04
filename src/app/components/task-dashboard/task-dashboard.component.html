@@ -1,0 +1,74 @@
+<div class="crew-container">
+  <header class="header">
+    <h1>🏁 CAL-TECH Motorsports: Pit Lane Task Tracker</h1>
+    <p class="subtitle">Car #78 Garage Management & Setup Protocol</p>
+  </header>
+
+  <!-- Add Task Form -->
+  <section class="task-form-card">
+    <h3>Add Garage Task</h3>
+    <form (submit)="onAddTask(); $event.preventDefault()">
+      <div class="form-group">
+        <label>Task Title:</label>
+        <input type="text" [(ngModel)]="newTitle" name="title" placeholder="e.g., Check Tire Stagger" required />
+      </div>
+      <div class="form-group">
+        <label>Description:</label>
+        <input type="text" [(ngModel)]="newDescription" name="description" placeholder="e.g., Measure hot pressures" />
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Priority:</label>
+          <select [(ngModel)]="newPriority" name="priority">
+            <option value="Low">Low</option>
+            <option value="High">High</option>
+            <option value="CRITICAL">CRITICAL</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Due Date & Time:</label>
+          <input type="datetime-local" [(ngModel)]="newDueDate" name="dueDate" />
+        </div>
+      </div>
+      <button type="submit" class="btn-submit">Add to Crew Queue</button>
+    </form>
+  </section>
+
+  <!-- Task Queue using RxJS Async Pipe -->
+  <section class="task-list-section">
+    <h3>Active Pit Queue</h3>
+    
+    <div *ngIf="tasks$ | async as tasks; else loading">
+      <div class="empty-state" *ngIf="tasks.length === 0">
+        <p>No active tasks. Ready for the heat race!</p>
+      </div>
+
+      <div class="task-cards-grid">
+        <div *ngFor="let task of tasks" 
+             class="task-card" 
+             [appPitHighlight]="task.priority" 
+             [isCompleted]="task.completed">
+          
+          <div class="task-header">
+            <span class="badge">{{ task.priority | taskStatus }}</span>
+            <small class="due-date">Due: {{ task.dueDate | date:'short' }}</small>
+          </div>
+
+          <h4>{{ task.title }}</h4>
+          <p>{{ task.description }}</p>
+
+          <div class="task-actions">
+            <button (click)="toggleCompletion(task.id)" class="btn-toggle">
+              {{ task.completed ? '↩️ Reopen' : '✅ Mark Complete' }}
+            </button>
+            <button (click)="deleteTask(task.id)" class="btn-delete">🗑️ Remove</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #loading>
+      <p>Loading telemetry task lists...</p>
+    </ng-template>
+  </section>
+</div>
