@@ -1,9 +1,9 @@
 <div class="task-dashboard-container">
   <header class="header-banner">
-    <h1>Pre Race - Task Manager</h1>
+    <h1>🏁 Pre Race  - Task Manager 🏁</h1>
     <p>Designed for Racers by Racers</p>
   </header>
-</div>
+
 
   <!-- Section Filter Tabs -->
   <div class="filter-bar">
@@ -16,34 +16,35 @@
 
   <!-- Add Task Form -->
   <div class="add-task-card">
-    <h2>Add Task</h2>
-    <div class="form-group">
-      <!-- Changed input to textarea -->
-      <textarea [(ngModel)]="newTaskTitle" placeholder="Task description..." rows="1"></textarea>
-      <input type="text" [(ngModel)]="newTaskAssignedTo" placeholder="Assignee (e.g. Mario)" />
-      <select [(ngModel)]="newTaskSection">
-        <option value="General">General</option>
-        <option value="Chassis">Chassis</option>
-        <option value="Tires">Tires</option>
-        <option value="Engine">Engine</option>
-      </select>
-      <select [(ngModel)]="newTaskPriority">
-        <option value="Low">Low Priority</option>
-        <option value="Medium">Medium Priority</option>
-        <option value="High">High Priority</option>
-      </select>
-      <button type="button" class="btn-add" (click)="onAddTask()">ADD TASK</button>
+    <h3>Add New Task</h3>
+    <div class="form-grid">
+        <!-- Changed input to textarea -->
+        <textarea [(ngModel)]="newTaskTitle" placeholder="Task description..." rows="1"></textarea>
+        <input type="text" [(ngModel)]="newTaskAssignedTo" placeholder="Assignee (e.g. Mario)" />
+        <select [(ngModel)]="newTaskSection">
+          <option value="General">General</option>
+          <option value="Chassis">Chassis</option>
+          <option value="Tires">Tires</option>
+          <option value="Engine">Engine</option>
+        </select>
+        <select [(ngModel)]="newTaskPriority">
+          <option value="Low">Low Priority</option>
+          <option value="Medium">Medium Priority</option>
+          <option value="High">High Priority</option>
+        </select>
+        <button type="button" class="btn-add" (click)="onAddTask()">ADD TASK</button>
+      </div>
     </div>
-  </div>
 
-  <!-- Task Cards Container -->
-  <div class="task-list">
-    <div 
-      *ngFor="let task of getFilteredTasks() | async" 
-      class="task-card" 
-      [ngClass]="{ 'is-completed': task.status === 'Completed' }"
-      [appPitHighlight]="task.priority"
-    >
+    <!-- Task Cards Container -->
+    <div class="task-list">
+      <div 
+        *ngFor="let task of getFilteredTasks() | async" 
+        class="task-card" 
+        [ngClass]="{ 'is-completed': task.status === 'Completed' }"
+        [appPitHighlight]="task.priority"
+      >
+
       <!-- EDIT MODE -->
       <div class="edit-form-group" *ngIf="editingTaskId === task.id && editingTaskBuffer">
         <textarea [(ngModel)]="editingTaskBuffer.title" placeholder="Task title..." rows="1"></textarea>

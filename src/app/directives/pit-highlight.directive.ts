@@ -12,19 +12,21 @@ export class PitHighlightDirective implements OnInit {
   ngOnInit(): void {
     const card = this.el.nativeElement;
     
-    // Set left border accent based on priority
-    let borderColor = '#388bff'; // Default Blue for Low
+    // Set accent based on priority
+    let borderColor = '#388bff'; // Default Blue for Low priority
     let dotColor = '#388bff';
 
     if (this.priority === 'High') {
-      borderColor = '#dc3545'; // Red
+      borderColor = '#dc3545'; // Red for High priority
       dotColor = '#dc3545';
     } else if (this.priority === 'Medium') {
-      borderColor = '#d29922'; // Yellow
+      borderColor = '#d29922'; // Yellow for Medium priority
       dotColor = '#d29922';
     }
 
+    // Apply matching border colors to both left and right sides
     this.renderer.setStyle(card, 'border-left', `5px solid ${borderColor}`);
+    this.renderer.setStyle(card, 'border-right', `5px solid ${borderColor}`);
 
     // Style the highlight dot element if present inside the card
     const dot = card.querySelector('.priority-dot');

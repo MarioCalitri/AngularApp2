@@ -1,238 +1,6 @@
-:host {
-  display: block;
-  min-height: 100vh;
-  background-color: #0d0f12;
-  color: #868686;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  padding: 2rem;
-}
-
-.dashboard-container {
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-/* Header Banner */
-.header-banner {
-  background: linear-gradient(135deg, #161b22 0%, #0d0f12 100%);
-  border: 1px solid #e45a05;
-  border-left: 5px solid #dc3545; /* CAL-TECH Racing Red Accent */
-  padding: 1.5rem 2rem;
-  border-radius: 8px;
-  margin-bottom: 2rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-}
-
-.header-banner h1 {
-  margin: 0;
-  font-size: 1.8rem;
-  letter-spacing: 0.5px;
-  color: #f30909;
-  text-transform: uppercase;
-}
-
-.header-banner p {
-  margin: 0.5rem 0 0;
-  color: #8b949e;
-  font-size: 0.95rem;
-}
-
-/* Form Panel */
-.add-task-card {
-  background-color: #161b22;
-  border: 1px solid #30363d;
-  border-radius: 8px;
-  padding: 1.5rem;
-  margin-bottom: 2rem;
-}
-
-.add-task-card h2 {
-  margin-top: 0;
-  font-size: 1.2rem;
-  color: #58a6ff;
-  margin-bottom: 1rem;
-}
-
-.form-group {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 1rem;
-}
-
-input[type="text"],
-select {
-  flex: 1;
-  background-color: #0d0f12;
-  border: 1px solid #30363d;
-  color: #f0f6fc;
-  padding: 0.75rem 1rem;
-  border-radius: 6px;
-  font-size: 0.95rem;
-  outline: none;
-  transition: border-color 0.2s;
-}
-
-input[type="text"]:focus,
-select:focus {
-  border-color: #58a6ff;
-}
-
-button.btn-add {
-  background-color: #238636;
-  color: #ffffff;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 6px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-button.btn-add:hover {
-  background-color: #2ea043;
-}
- textarea {
-  background-color: #0d0f12;
-  border: 1px solid #30363d;
-  color: #f0f6fc;
-  padding: 0.7rem 1rem;
-  border-radius: 6px;
-  font-size: 0.9rem;
-  font-family: inherit;
-  outline: none;
-  width: 100%;
-  box-sizing: border-box;
-  resize: none;        /* Prevents manual dragging distortion */
-  height: 42px;        /* Locks height to match inputs exactly */
-  line-height: 1.2;
-  transition: border-color 0.2s;
-}
-
-textarea:focus {
-  border-color: #58a6ff;
-}
-
-textarea:focus {
-  border-color: #58a6ff;
-}
-
-/* Filter Controls */
-.filter-bar {
-  display: flex;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
-}
-
-.filter-btn {
-  background-color: #21262d;
-  border: 1px solid #30363d;
-  color: #c9d1d9;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: 500;
-}
-
-.filter-btn.active {
-  background-color: #30363d;
-  color: #58a6ff;
-  border-color: #58a6ff;
-}
-
-/* Task List Cards */
-.task-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.task-card {
-  background-color: #161b22;
-  border: 1px solid #30363d;
-  border-radius: 6px;
-  padding: 1rem 1.25rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  transition: transform 0.1s, border-color 0.2s;
-}
-
-.task-card:hover {
-  border-color: #8b949e;
-}
-
-.task-info h3 {
-  margin: 0 0 0.25rem;
-}
-.h4 {
-  color: #0d0f12;
-}
-
-.edit-form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.edit-form-group textarea {
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-  resize: vertical;
-  min-height: 42px;
-}
-
-.task-right-section {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.btn-edit {
-  background-color: #21262d;
-  border: 1px solid #30363d;
-  color: #58a6ff;
-  padding: 0.4rem 0.8rem;
-  border-radius: 4px;
-  font-size: 0.85rem;
-  cursor: pointer;
-}
-
-.btn-edit:hover {
-  background-color: #30363d;
-  border-color: #58a6ff;
-}
-
-.btn-save {
-  background-color: #238636;
-  border: 1px solid #2ea043;
-  color: #ffffff;
-  padding: 0.4rem 0.8rem;
-  border-radius: 4px;
-  font-size: 0.85rem;
-  cursor: pointer;
-}
-
-.btn-save:hover {
-  background-color: #2ea043;
-}
-
-.btn-cancel {
-  background-color: #21262d;
-  border: 1px solid #30363d;
-  color: #8b949e;
-  padding: 0.4rem 0.8rem;
-  border-radius: 4px;
-  font-size: 0.85rem;
-  cursor: pointer;
-}
-
-.btn-cancel:hover {
-  color: #f0f6fc;
-}
-/* Completed Task Styling */
+/* ==========================================
+   1. HOST & CONTAINER LAYOUT
+   ========================================== */
 :host {
   display: block;
   min-height: 100vh;
@@ -247,7 +15,20 @@ textarea:focus {
   margin: 0 auto;
 }
 
-/* Header Banner */
+.task-dashboard-container {
+  min-height: 100vh;
+  padding: 20px;
+  background-color: #1a1a1a;
+  background-image: 
+    repeating-linear-gradient(45deg, #2a2a2a 25%, transparent 25%, transparent 75%, #2a2a2a 75%, #2a2a2a),
+    repeating-linear-gradient(45deg, #2a2a2a 25%, #111111 25%, #111111 75%, #2a2a2a 75%, #2a2a2a);
+  background-position: 0 0, 25px 25px;
+  background-size: 50px 50px;
+}
+
+/* ==========================================
+   2. HEADER BANNER
+   ========================================== */
 .header-banner {
   background: linear-gradient(135deg, #161b22 0%, #0d0f12 100%);
   border: 1px solid #30363d;
@@ -255,11 +36,14 @@ textarea:focus {
   border-radius: 8px;
   margin-bottom: 2rem;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+  text-align: center;
 }
 
 .header-banner h1 {
+  font-family: 'SwipeRaceDemo', sans-serif;
+  color: #f85149 !important;
   margin: 0;
-  font-size: 1.6rem;
+  font-size: 1.7rem; /* Adjusted size if needed for custom font scaling */
   letter-spacing: 1px;
   color: #ffffff;
   text-transform: uppercase;
@@ -271,7 +55,9 @@ textarea:focus {
   font-size: 0.9rem;
 }
 
-/* Filter Bar */
+/* ==========================================
+   3. FILTER CONTROLS
+   ========================================== */
 .filter-bar {
   display: flex;
   gap: 0.75rem;
@@ -302,23 +88,72 @@ textarea:focus {
   box-shadow: 0 0 10px rgba(88, 166, 255, 0.15);
 }
 
-/* Add Task Card */
+/* ==========================================
+   4. ADD TASK FORM PANEL
+   ========================================== */
 .add-task-card {
-  background-color: #161b22;
-  border: 1px solid #30363d;
-  border-radius: 8px;
-  padding: 1.5rem 1.75rem;
-  margin-bottom: 2rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  background-color: #121212;
+  border: 1px solid #2a2a2a;
+  border-left: 5px solid #388bff;
+  border-right: 5px solid #388bff;
+  border-radius: 6px;
+  padding: 20px;
+  margin-bottom: 20px;
 }
 
 .add-task-card h2 {
   margin-top: 0;
+  margin-bottom: 1rem;
   font-size: 1.1rem;
   color: #58a6ff;
-  margin-bottom: 1rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+}
+
+.add-task-card h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.form-grid {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.form-grid textarea,
+.form-grid input,
+.form-grid select {
+  background-color: #1a1a1a;
+  border: 1px solid #333333;
+  color: #ffffff;
+  padding: 10px 14px;
+  border-radius: 4px;
+  font-size: 14px;
+  outline: none;
+}
+
+.form-grid textarea {
+  flex: 2;
+  min-width: 220px;
+  resize: none;
+}
+
+.form-grid input,
+.form-grid select {
+  flex: 1;
+  min-width: 130px;
+}
+
+.form-grid textarea:focus,
+.form-grid input:focus,
+.form-grid select:focus {
+  border-color: #388bff;
 }
 
 .form-group {
@@ -347,23 +182,30 @@ select:focus {
   border-color: #58a6ff;
 }
 
-button.btn-add {
-  background-color: #238636;
-  color: #ffffff;
-  border: none;
-  padding: 0.7rem 1.25rem;
+textarea {
+  background-color: #0d0f12;
+  border: 1px solid #30363d;
+  color: #f0f6fc;
+  padding: 0.7rem 1rem;
   border-radius: 6px;
-  font-weight: 600;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: background-color 0.2s;
+  font-size: 0.9rem;
+  font-family: inherit;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+  resize: none;
+  height: 42px;
+  line-height: 1.2;
+  transition: border-color 0.2s;
 }
 
-button.btn-add:hover {
-  background-color: #2ea043;
+textarea:focus {
+  border-color: #58a6ff;
 }
 
-/* Task Cards Container */
+/* ==========================================
+   5. TASK LIST CARDS & CONTENT
+   ========================================== */
 .task-list {
   display: flex;
   flex-direction: column;
@@ -398,13 +240,28 @@ button.btn-add:hover {
   color: #8b949e;
 }
 
-/* Right Section & Badges */
 .task-right-section {
   display: flex;
   align-items: center;
   gap: 1rem;
 }
 
+.h4 {
+  color: #0d0f12;
+}
+
+/* Solid card dark panels override */
+.task-dashboard-container header,
+.add-task-card,
+.task-item,
+.task-card {
+  background-color: #121212;
+  border: 1px solid #2a2a2a;
+}
+
+/* ==========================================
+   6. SECTION & STATUS BADGES
+   ========================================== */
 .status-badge {
   padding: 0.3rem 0.65rem;
   border-radius: 6px;
@@ -438,7 +295,41 @@ button.btn-add:hover {
   border: 1px solid rgba(248, 81, 73, 0.3);
 }
 
-/* Action Buttons */
+.status-badge.completed {
+  background-color: rgba(46, 160, 67, 0.15);
+  color: #3fb950;
+  border: 1px solid rgba(46, 160, 67, 0.4);
+}
+
+/* ==========================================
+   7. BUTTONS & ACTIONS
+   ========================================== */
+button, .filter-btn, .btn-primary {
+  background-color: #1f1f1f;
+  color: #ffffff;
+  border: 1px solid #3a3a3a;
+}
+
+button:hover, .filter-btn:hover {
+  background-color: #333333;
+}
+
+button.btn-add {
+  background-color: #28a745;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.2s;
+}
+
+button.btn-add:hover {
+  background-color: #218838;
+}
+
 .task-actions {
   display: flex;
   gap: 0.5rem;
@@ -477,34 +368,6 @@ button.btn-add:hover {
   border-color: #f85149;
 }
 
-/* Blacked Out Completed Task Styling */
-.task-card.is-completed {
-  background-color: #11151c !important;
-  border-color: #30363d !important;
-  opacity: 0.35;
-}
-
-.task-card.is-completed h3 {
-  text-decoration: line-through;
-  color: #8b949e;
-}
-
-.task-card.is-completed .task-meta {
-  color: #6e7681;
-}
-
-.task-card.is-completed .priority-dot {
-  opacity: 0.6;
-}
-
-/* Edit Form Group Styling */
-.edit-form-group {
-  display: flex;
-  gap: 0.5rem;
-  width: 100%;
-  align-items: center;
-}
-
 .btn-save {
   background-color: #238636;
   border: none;
@@ -534,14 +397,58 @@ button.btn-add:hover {
   color: #f0f6fc;
 }
 
-/* Status Badge for Completed */
-.status-badge.completed {
-  background-color: rgba(46, 160, 67, 0.15);
-  color: #3fb950;
-  border: 1px solid rgba(46, 160, 67, 0.4);
+/* ==========================================
+   8. COMPLETED TASK STATE OVERRIDES
+   ========================================== */
+.task-card.is-completed {
+  background-color: #121212 !important; 
+  opacity: 1 !important;                
+  color: #ffffff;
+  border-left: 5px solid #28a745 !important;
+  border-right: 5px solid #28a745 !important;
+  border-color: #28a745 !important;
 }
-.task-dashboard-container {
-  min-height: 100vh;
-  padding: 20px;
-  /* background-image removed so the global body background shows through! */
+
+.task-card.is-completed .task-title,
+.task-card.is-completed p,
+.task-card.is-completed span {
+  text-decoration: line-through;
+  color: #a0a0a0;
+}
+
+.task-card.is-completed h3 {
+  text-decoration: line-through;
+  color: #8b949e;
+}
+
+.task-card.is-completed .task-meta {
+  color: #6e7681;
+}
+
+.task-card.is-completed .badge,
+.task-card.is-completed button {
+  opacity: 1 !important;
+}
+
+.task-card.is-completed .priority-dot {
+  opacity: 0.6;
+}
+
+/* ==========================================
+   9. EDIT TASK INLINE FORM
+   ========================================== */
+.edit-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.edit-form-group textarea {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  resize: vertical;
+  min-height: 42px;
 }

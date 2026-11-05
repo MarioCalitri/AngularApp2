@@ -1,9 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-/**
- * TaskStatusPipe
- * Custom pipe that transforms priority values into race-themed alert codes.
- */
+/* TaskStatusPipe */
 @Pipe({
   name: 'taskStatus',
   standalone: true

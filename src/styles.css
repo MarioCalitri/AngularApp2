@@ -1,12 +1,17 @@
+@font-face {
+  font-family: 'SwipeRaceDemo';
+  src: url('./app/fonts/SwipeRaceDemo.ttf') format('truetype');  font-weight: normal;
+  font-style: normal;
+}
+
 body {
   margin: 0;
-  background-image: 
-    linear-gradient(45deg, #1f1f1f 25%, transparent 25%), 
-    linear-gradient(-45deg, #1f1f1f 25%, transparent 25%), 
-    linear-gradient(45deg, transparent 75%, #1f1f1f 75%), 
-    linear-gradient(-45deg, transparent 75%, #1f1f1f 75%);
-  background-size: 40px 40px;
-  background-position: 0 0, 0 20px, 20px -20px, -20px 0px;
-  background-color: #0a0a0a; /* Alternating dark square color */
   min-height: 100vh;
+  background-color: #1a1a1a;
+  background-image: 
+    repeating-linear-gradient(45deg, #2a2a2a 25%, transparent 25%, transparent 75%, #2a2a2a 75%, #2a2a2a),
+    repeating-linear-gradient(45deg, #2a2a2a 25%, #111111 25%, #111111 75%, #2a2a2a 75%, #2a2a2a);
+  background-position: 0 0, 25px 25px;
+  background-size: 50px 50px;
+  background-attachment: fixed; /* Locks pattern in place as a true background */
 }
