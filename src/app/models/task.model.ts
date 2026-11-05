@@ -1,12 +1,8 @@
-/**
- * GarageTask Model
- * Defines the structure for CAL-TECH Motorsports pit crew and garage tasks.
- */
-export interface GarageTask {
+export interface Task {
   id: number;
   title: string;
-  description: string;
-  priority: 'Low' | 'High' | 'CRITICAL';
-  dueDate: string;
-  completed: boolean;
+  section: 'General' | 'Chassis' | 'Tires' | 'Engine';
+  priority: 'Low' | 'Medium' | 'High';
+  status: 'Pending' | 'In Progress' | 'Completed';
+  assignedTo: string;
 }

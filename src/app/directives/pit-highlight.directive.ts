@@ -1,45 +1,36 @@
-import { Directive, ElementRef, Input, OnChanges, SimpleChanges, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
 
-/**
- * PitHighlightDirective
- * Modifies element appearance dynamically based on task priority and completion status.
- */
 @Directive({
   selector: '[appPitHighlight]',
   standalone: true
 })
-export class PitHighlightDirective implements OnChanges {
-  @Input() appPitHighlight: string = '';
-  @Input() isCompleted: boolean = false;
+export class PitHighlightDirective implements OnInit {
+  @Input('appPitHighlight') priority: string = 'Medium';
 
   constructor(private el: ElementRef, private renderer: Renderer2) {}
 
-  ngOnChanges(changes: SimpleChanges): void {
-    this.applyStyles();
-  }
+  ngOnInit(): void {
+    const card = this.el.nativeElement;
+    
+    // Set left border accent based on priority
+    let borderColor = '#388bff'; // Default Blue for Low
+    let dotColor = '#388bff';
 
-  private applyStyles(): void {
-    if (this.isCompleted) {
-      // Completed task styling: strike-through and gray border
-      this.renderer.setStyle(this.el.nativeElement, 'text-decoration', 'line-through');
-      this.renderer.setStyle(this.el.nativeElement, 'opacity', '0.6');
-      this.renderer.setStyle(this.el.nativeElement, 'border-left', '5px solid #6c757d');
-    } else {
-      // Reset text decoration for active tasks
-      this.renderer.setStyle(this.el.nativeElement, 'text-decoration', 'none');
-      this.renderer.setStyle(this.el.nativeElement, 'opacity', '1');
+    if (this.priority === 'High') {
+      borderColor = '#dc3545'; // Red
+      dotColor = '#dc3545';
+    } else if (this.priority === 'Medium') {
+      borderColor = '#d29922'; // Yellow
+      dotColor = '#d29922';
+    }
 
-      // Dynamic color highlights based on priority
-      if (this.appPitHighlight === 'CRITICAL') {
-        this.renderer.setStyle(this.el.nativeElement, 'border-left', '5px solid #dc3545');
-        this.renderer.setStyle(this.el.nativeElement, 'background-color', 'rgba(220, 53, 69, 0.05)');
-      } else if (this.appPitHighlight === 'High') {
-        this.renderer.setStyle(this.el.nativeElement, 'border-left', '5px solid #ffc107');
-        this.renderer.setStyle(this.el.nativeElement, 'background-color', '#fff');
-      } else {
-        this.renderer.setStyle(this.el.nativeElement, 'border-left', '5px solid #198754');
-        this.renderer.setStyle(this.el.nativeElement, 'background-color', '#fff');
-      }
+    this.renderer.setStyle(card, 'border-left', `5px solid ${borderColor}`);
+
+    // Style the highlight dot element if present inside the card
+    const dot = card.querySelector('.priority-dot');
+    if (dot) {
+      this.renderer.setStyle(dot, 'background-color', dotColor);
+      this.renderer.setStyle(dot, 'box-shadow', `0 0 8px ${dotColor}`);
     }
   }
 }

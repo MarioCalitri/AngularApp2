@@ -1,1 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+  margin: 0;
+  background-image: 
+    linear-gradient(45deg, #1f1f1f 25%, transparent 25%), 
+    linear-gradient(-45deg, #1f1f1f 25%, transparent 25%), 
+    linear-gradient(45deg, transparent 75%, #1f1f1f 75%), 
+    linear-gradient(-45deg, transparent 75%, #1f1f1f 75%);
+  background-size: 40px 40px;
+  background-position: 0 0, 0 20px, 20px -20px, -20px 0px;
+  background-color: #0a0a0a; /* Alternating dark square color */
+  min-height: 100vh;
+}

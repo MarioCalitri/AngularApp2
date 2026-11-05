@@ -1,78 +1,42 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { GarageTask } from '../models/task.model';
+import { Task } from '../models/task.model';
 
-/**
- * TaskService
- * Handles task data storage and provides reactive updates via RxJS Observables.
- */
 @Injectable({
   providedIn: 'root'
 })
 export class TaskService {
-  // In-memory array initialized with short-track race setup tasks
-  private initialTasks: GarageTask[] = [
-    {
-      id: 1,
-      title: 'Check Right-Rear Tire Stagger',
-      description: 'Measure hot pressure and stagger dimensions before heat race.',
-      priority: 'CRITICAL',
-      dueDate: '2026-11-05T14:30',
-      completed: false
-    },
-    {
-      id: 2,
-      title: 'Adjust Panhard Bar Height',
-      description: 'Lower rear roll center by 1/4 inch to fix mid-corner tight condition.',
-      priority: 'High',
-      dueDate: '2026-11-05T15:00',
-      completed: false
-    },
-    {
-      id: 3,
-      title: 'Top Off Sunoco Spec Fuel',
-      description: 'Fill fuel cell to minimum race weight requirements.',
-      priority: 'Low',
-      dueDate: '2026-11-05T16:00',
-      completed: true
-    }
+  private initialTasks: Task[] = [
+    { id: 1, title: 'Check Tire Stagger & Pressures', priority: 'Low', status: 'In Progress', section: 'Tires', assignedTo: 'Mario' },
+    { id: 2, title: 'Inspect Corner Weights & Cross Weight %', priority: 'Medium', status: 'Pending', section: 'Chassis', assignedTo: 'Crew Chief' },
+    { id: 3, title: 'Shop Cleanup & Tool Inventory', priority: 'High', status: 'Completed', section: 'General', assignedTo: 'Team' }
   ];
 
-  // BehaviorSubject maintains current task state for subscribers
-  private tasksSubject = new BehaviorSubject<GarageTask[]>(this.initialTasks);
-  
-  // Public observable stream exposed to components
-  public tasks$: Observable<GarageTask[]> = this.tasksSubject.asObservable();
+  private tasksSubject = new BehaviorSubject<Task[]>(this.initialTasks);
+  tasks$: Observable<Task[]> = this.tasksSubject.asObservable();
 
-  constructor() {}
+  getTasks(): Task[] {
+    return this.tasksSubject.getValue();
+  }
 
-  /**
-   * Adds a new task to the observable stream.
-   */
-  addTask(task: Omit<GarageTask, 'id'>): void {
-    const currentTasks = this.tasksSubject.value;
-    const newTask: GarageTask = {
+  addTask(task: Omit<Task, 'id'>): void {
+    const currentTasks = this.getTasks();
+    const newTask: Task = {
       ...task,
       id: currentTasks.length ? Math.max(...currentTasks.map(t => t.id)) + 1 : 1
     };
     this.tasksSubject.next([...currentTasks, newTask]);
   }
 
-  /**
-   * Toggles task completion state reactively.
-   */
-  toggleTaskCompletion(id: number): void {
-    const updatedTasks = this.tasksSubject.value.map(task =>
-      task.id === id ? { ...task, completed: !task.completed } : task
+  updateTask(updatedTask: Task): void {
+    const updatedList = this.getTasks().map(task =>
+      task.id === updatedTask.id ? { ...updatedTask } : task
     );
-    this.tasksSubject.next(updatedTasks);
+    this.tasksSubject.next(updatedList);
   }
 
-  /**
-   * Deletes a task by ID from the stream.
-   */
   deleteTask(id: number): void {
-    const filteredTasks = this.tasksSubject.value.filter(task => task.id !== id);
-    this.tasksSubject.next(filteredTasks);
+    const updatedTasks = this.getTasks().filter(task => task.id !== id);
+    this.tasksSubject.next(updatedTasks);
   }
 }

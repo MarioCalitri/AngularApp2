@@ -1,11 +1,10 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component } from '@angular/core';
+import { TaskDashboardComponent } from './components/task-dashboard/task-dashboard.component';
 
 @Component({
   selector: 'app-root',
-  styleUrl: './app.css',
-  templateUrl: './app.html',
+  standalone: true,
+  imports: [TaskDashboardComponent],
+  template: `<app-task-dashboard></app-task-dashboard>`
 })
-export class App {
-  protected readonly title = signal('AngularApp2');
-}
+export class AppComponent {}

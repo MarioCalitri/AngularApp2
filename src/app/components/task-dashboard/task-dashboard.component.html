@@ -1,74 +1,114 @@
-<div class="crew-container">
-  <header class="header">
-    <h1>🏁 CAL-TECH Motorsports: Pit Lane Task Tracker</h1>
-    <p class="subtitle">Car #78 Garage Management & Setup Protocol</p>
+<div class="task-dashboard-container">
+  <header class="header-banner">
+    <h1>Pre Race - Task Manager</h1>
+    <p>Designed for Racers by Racers</p>
   </header>
+</div>
+
+  <!-- Section Filter Tabs -->
+  <div class="filter-bar">
+    <button class="filter-btn" [class.active]="selectedSectionFilter === 'All'" (click)="setSectionFilter('All')">All Sections</button>
+    <button class="filter-btn" [class.active]="selectedSectionFilter === 'General'" (click)="setSectionFilter('General')">General</button>
+    <button class="filter-btn" [class.active]="selectedSectionFilter === 'Chassis'" (click)="setSectionFilter('Chassis')">Chassis</button>
+    <button class="filter-btn" [class.active]="selectedSectionFilter === 'Tires'" (click)="setSectionFilter('Tires')">Tires</button>
+    <button class="filter-btn" [class.active]="selectedSectionFilter === 'Engine'" (click)="setSectionFilter('Engine')">Engine</button>
+  </div>
 
   <!-- Add Task Form -->
-  <section class="task-form-card">
-    <h3>Add Garage Task</h3>
-    <form (submit)="onAddTask(); $event.preventDefault()">
-      <div class="form-group">
-        <label>Task Title:</label>
-        <input type="text" [(ngModel)]="newTitle" name="title" placeholder="e.g., Check Tire Stagger" required />
-      </div>
-      <div class="form-group">
-        <label>Description:</label>
-        <input type="text" [(ngModel)]="newDescription" name="description" placeholder="e.g., Measure hot pressures" />
-      </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label>Priority:</label>
-          <select [(ngModel)]="newPriority" name="priority">
-            <option value="Low">Low</option>
-            <option value="High">High</option>
-            <option value="CRITICAL">CRITICAL</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Due Date & Time:</label>
-          <input type="datetime-local" [(ngModel)]="newDueDate" name="dueDate" />
-        </div>
-      </div>
-      <button type="submit" class="btn-submit">Add to Crew Queue</button>
-    </form>
-  </section>
-
-  <!-- Task Queue using RxJS Async Pipe -->
-  <section class="task-list-section">
-    <h3>Active Pit Queue</h3>
-    
-    <div *ngIf="tasks$ | async as tasks; else loading">
-      <div class="empty-state" *ngIf="tasks.length === 0">
-        <p>No active tasks. Ready for the heat race!</p>
-      </div>
-
-      <div class="task-cards-grid">
-        <div *ngFor="let task of tasks" 
-             class="task-card" 
-             [appPitHighlight]="task.priority" 
-             [isCompleted]="task.completed">
-          
-          <div class="task-header">
-            <span class="badge">{{ task.priority | taskStatus }}</span>
-            <small class="due-date">Due: {{ task.dueDate | date:'short' }}</small>
-          </div>
-
-          <h4>{{ task.title }}</h4>
-          <p>{{ task.description }}</p>
-
-          <div class="task-actions">
-            <button (click)="toggleCompletion(task.id)" class="btn-toggle">
-              {{ task.completed ? '↩️ Reopen' : '✅ Mark Complete' }}
-            </button>
-            <button (click)="deleteTask(task.id)" class="btn-delete">🗑️ Remove</button>
-          </div>
-        </div>
-      </div>
+  <div class="add-task-card">
+    <h2>Add Task</h2>
+    <div class="form-group">
+      <!-- Changed input to textarea -->
+      <textarea [(ngModel)]="newTaskTitle" placeholder="Task description..." rows="1"></textarea>
+      <input type="text" [(ngModel)]="newTaskAssignedTo" placeholder="Assignee (e.g. Mario)" />
+      <select [(ngModel)]="newTaskSection">
+        <option value="General">General</option>
+        <option value="Chassis">Chassis</option>
+        <option value="Tires">Tires</option>
+        <option value="Engine">Engine</option>
+      </select>
+      <select [(ngModel)]="newTaskPriority">
+        <option value="Low">Low Priority</option>
+        <option value="Medium">Medium Priority</option>
+        <option value="High">High Priority</option>
+      </select>
+      <button type="button" class="btn-add" (click)="onAddTask()">ADD TASK</button>
     </div>
+  </div>
 
-    <ng-template #loading>
-      <p>Loading telemetry task lists...</p>
-    </ng-template>
-  </section>
-</div>
+  <!-- Task Cards Container -->
+  <div class="task-list">
+    <div 
+      *ngFor="let task of getFilteredTasks() | async" 
+      class="task-card" 
+      [ngClass]="{ 'is-completed': task.status === 'Completed' }"
+      [appPitHighlight]="task.priority"
+    >
+      <!-- EDIT MODE -->
+      <div class="edit-form-group" *ngIf="editingTaskId === task.id && editingTaskBuffer">
+        <textarea [(ngModel)]="editingTaskBuffer.title" placeholder="Task title..." rows="1"></textarea>
+        
+        <!-- Ensure this input is explicitly bound to editingTaskBuffer.assignedTo -->
+        <input type="text" [(ngModel)]="editingTaskBuffer.assignedTo" placeholder="Assignee" />
+        
+        <select [(ngModel)]="editingTaskBuffer.section">
+          <option value="General">General</option>
+          <option value="Chassis">Chassis</option>
+          <option value="Tires">Tires</option>
+          <option value="Engine">Engine</option>
+        </select>
+        
+        <select [(ngModel)]="editingTaskBuffer.priority">
+          <option value="Low">Low</option>
+          <option value="Medium">Medium</option>
+          <option value="High">High</option>
+        </select>
+        
+        <select [(ngModel)]="editingTaskBuffer.status">
+          <option value="Pending">Pending</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Completed">Completed</option>
+        </select>
+        
+        <div class="task-actions">
+          <button type="button" class="btn-save" (click)="saveEdit()">Save</button>
+          <button type="button" class="btn-cancel" (click)="cancelEdit()">Cancel</button>
+        </div>
+      </div>
+
+      <!-- READ-ONLY MODE -->
+      <div class="task-display-row" *ngIf="editingTaskId !== task.id" style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+        <div class="task-info">
+          <h3>{{ task.title }}</h3>
+          <span class="task-meta">
+            Assigned: <strong>{{ task.assignedTo }}</strong> | Priority: <strong>{{ task.priority }}</strong>
+          </span>
+        </div>
+
+        <div class="task-right-section" style="display: flex; align-items: center; gap: 0.75rem;">
+          <!-- Priority Dot -->
+          <span class="priority-dot" [ngStyle]="{
+            'width': '10px',
+            'height': '10px',
+            'border-radius': '50%',
+            'display': 'inline-block',
+            'background-color': task.priority === 'High' ? '#dc3545' : task.priority === 'Medium' ? '#d29922' : '#388bff',
+            'box-shadow': task.priority === 'High' ? '0 0 8px #dc3545' : task.priority === 'Medium' ? '0 0 8px #d29922' : '0 0 8px #388bff'
+          }"></span>
+
+          <!-- Section Badge -->
+          <span class="status-badge" [ngClass]="task.section.toLowerCase()">
+            [{{ task.section | uppercase }}]
+          </span>
+
+          <!-- Status Badge (Shows Pending, In Progress, or Completed) -->
+          <span class="status-badge" [ngClass]="task.status ? task.status.toLowerCase().replace(' ', '-') : 'pending'">
+            {{ task.status || 'Pending' }}
+          </span>
+
+          <div class="task-actions" style="margin-left: 0.5rem;">
+            <button type="button" class="btn-edit" (click)="startEdit(task)">Edit</button>
+            <button type="button" class="btn-delete" (click)="onDeleteTask(task.id)">Delete</button>
+          </div>
+        </div>
+      </div>

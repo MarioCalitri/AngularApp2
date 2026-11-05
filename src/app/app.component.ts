@@ -5,6 +5,6 @@ import { TaskDashboardComponent } from './components/task-dashboard/task-dashboa
   selector: 'app-root',
   standalone: true,
   imports: [TaskDashboardComponent],
-  template: `<app-task-dashboard></app-task-dashboard>`
+  template: `<app-task-dashboard></app-task-dashboard>`,
 })
 export class AppComponent {}
